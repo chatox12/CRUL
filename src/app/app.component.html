@@ -1,0 +1,231 @@
+<div class="container">
+<br>
+<hr>
+<button class="btn btn-primary" (click)="lgAgregar.show()">+ agregar</button>
+<hr>
+
+  <input type="file" name="userfile" size="20" />
+  <input type="button" value="upload" (click)="submitimg(userfile.value)" />
+
+<hr>
+<button  name="button" (click)="function_put()"> update</button>
+<hr>
+
+<hr>
+<button  name="button" (click)="function_delete()"> delete</button>
+<hr>
+
+
+<table id="example" class="display table table-border table-over" width="100%">
+  <thead>
+    <tr align="center">
+      <th>ID</th>
+      <th>ocacion</th>
+      <th>Editar</th>
+      <th>Borrar</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let view of dataArray.ocacion">
+      <td>{{view.idocacion}}</td>
+      <td>{{view.nombre_oc}}</td>
+
+      <td width="10%"><button (click)="lgModal.show()" class="btn btn-primary">editar</button> </td>
+      <td width="10%"><button class="btn btn-danger">eliminar</button></td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+<hr>
+  <div class="container">
+    <input type="button" value="comprar" class="btn btn-danger" (click)="lgcomprar.show()">
+  </div>
+<br><br>
+
+<!--Modal from edit-->
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">EDITAR</h4>
+        <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+<br>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">OCACION</span>
+          <input type="text" class="form-control" placeholder="Ingrese una Ocacion" aria-describedby="basic-addon1" value={{nombre}}>
+        </div>
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-primary"> Aceptar</button>
+          <button (click)="lgModal.hide()" class="btn btn-danger">close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Modal from add-->
+
+
+<div bsModal #lgAgregar="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">AGREGAR</h4>
+        <button type="button" class="close pull-right" (click)="lgAgregar.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form id="formNewProduct" name="formNewProduct" #productData = "ngForm" (ngSubmit)="addNewProduct(productData.value)">
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1" >OCACION</span>
+          <input type="text" class="form-control" placeholder="Ingrese una Ocacion" aria-describedby="basic-addon1"  #searchBox id="search-box" (keyup)="search(searchBox.value)" required>
+        </div>
+        <br>
+        <div *ngIf="valor_ocacion" class="alert alert-danger" role="alert">
+          <strong>Oh</strong> debe de Ingresar una Ocacion.
+        </div>
+      </form>
+      </div>
+      <div class="modal-footer">
+          <input  (click)="function_add(searchBox.value)" class="btn btn-primary" type="submit" name="" value="agregar">
+          <button (click)="lgAgregar.hide()" class="btn btn-danger">cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--Modal para comprar-->
+<div bsModal #lgcomprar="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Comprar</h4>
+        <button type="button" class="close pull-right" (click)="lgAgregar.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form id="formNewProduct" name="formNewProd0uct" #productData = "ngForm" (ngSubmit)="addNewProduct(productData.value)">
+      <div class="container">
+        <div class="row">
+
+                  <div class="col-md-8">
+                    <hr>
+                    Datos del pastel
+                    <hr>
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1" >Nombre </span>
+                      <input type="text" class="form-control" placeholder="Ingrese una Ocacion" aria-describedby="basic-addon1">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1" >precio</span>
+                      <input type="text" class="form-control" placeholder="Ingrese una Ocacion" aria-describedby="basic-addon1">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                    imagenes
+                    </div>
+                  </div>
+        </div>
+        <hr>
+        Caracteristicas del pastel
+        <hr>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1" >Sabor del Pastel</span>
+            <select class="" name="">
+              <option value="">sabor 1</option>
+              <option value="">sabor 2</option>
+            </select>
+        </div>
+      <br>
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1" >Color del Pastel</span>
+          <select class="" name="">
+            <option value="">Color 1</option>
+            <option value="">Color 2</option>
+          </select>
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1" >Tipo Pastel</span>
+          <select class="" name="">
+            <option value="">Seleccione</option>
+            <option value="">Frio</option>
+            <option value="">Al Tiempo</option>
+          </select>
+      </div>
+    <br>
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1" >Cantidad de Piezas por Pastel</span>
+          <input type="number">
+      </div>
+<br>
+<div class="input-group">
+  <span class="input-group-addon" id="basic-addon1" >Cantida de pasteles</span>
+    <input type="number" value="1" min="1">
+</div>
+<div class="input-group">
+  <span class="input-group-addon" id="basic-addon1" >Cantida de pasteles</span>
+    <input type="number" value="1" min="1">
+</div>
+<br>
+<div>
+  <br>
+  personalizar pastel
+  <input type="checkbox" name="" id="">
+  <input type="checkbox" name="" value="">
+</div>
+si es cierto aparece
+<div>
+  <br>
+  Agregar Fotografia
+  <input type="file" name="" value="">
+</div>
+<hr>
+datos del cliente
+<hr>
+<div class="input-group">
+  <span class="input-group-addon" id="basic-addon1" >Nombre</span>
+    <input type="text">
+</div>
+<br>
+<div class="input-group">
+  <span class="input-group-addon" id="basic-addon1" >Direccion</span>
+    <input type="text">
+</div>
+<br>
+<div class="input-group">
+  <span class="input-group-addon" id="basic-addon1" >Telefono</span>
+    <input type="text">
+</div>
+<br>
+<div class="input-group">
+  <span class="input-group-addon" id="basic-addon1" >Fecha de Entrega</span>
+    <input type="date">
+</div>
+      </div>
+
+        <br>
+        <div *ngIf="valor_ocacion" class="alert alert-danger" role="alert">
+          <strong>Oh</strong> debe de Ingresar una Ocacion.
+        </div>
+      </form>
+      </div>
+      <div class="modal-footer">
+          <input  (click)="function_add(searchBox.value)" class="btn btn-primary" type="submit" name="" value="agregar">
+          <button (click)="lgcomprar.hide()" class="btn btn-danger">cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
